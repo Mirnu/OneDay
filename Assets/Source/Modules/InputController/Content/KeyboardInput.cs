@@ -17,6 +17,7 @@ public class KeyboardInput : ITickable, IInputHandler
 
     public void Tick()
     {
+        Debug.Log(1);
         foreach (KeyCode key in AllowedKeys)
         {
             OnKeyUp(key);
