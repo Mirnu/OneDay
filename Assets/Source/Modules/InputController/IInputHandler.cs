@@ -8,6 +8,6 @@ public interface IInputHandler
     Action<KeyCode> KeyUp { get; set; }
     Action<KeyCode> KeyDown { get; set; }
     Action<KeyCode> KeyPressed { get; set; }
-    Action<string> HorizontalAxis { get; set; }
-    Action<string> VerticalAxis { get; set; }
+    Action<float> HorizontalAxis { get; set; }
+    Action<float> VerticalAxis { get; set; }
 }

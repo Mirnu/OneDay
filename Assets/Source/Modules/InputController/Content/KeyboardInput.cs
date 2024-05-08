@@ -9,26 +9,22 @@ public class KeyboardInput : ITickable, IInputHandler
     public Action<KeyCode> KeyUp { get; set; }
     public Action<KeyCode> KeyDown { get; set; }
     public Action<KeyCode> KeyPressed { get; set; }
-    public Action<string> HorizontalAxis { get; set; }
-    public Action<string> VerticalAxis { get; set; }
+    public Action<float> HorizontalAxis { get; set; }
+    public Action<float> VerticalAxis { get; set; }
 
     private List<KeyCode> AllowedKeys = new List<KeyCode> { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
-    private List<string> AllowedAxes = new List<string> { "Horizontal", "Vertical" };
+    private const string Horizontal = "Horizontal", Vertical = "Vertical";
 
     public void Tick()
     {
-        Debug.Log(1);
         foreach (KeyCode key in AllowedKeys)
         {
-            OnKeyUp(key);
-            OnKeyDown(key);
-            OnKeyPressed(key);
+            if (Input.GetKeyUp(key)) OnKeyUp(key);
+            if (Input.GetKeyDown(key)) OnKeyDown(key);
+            if (Input.GetKey(key)) OnKeyPressed(key);
         }
-        foreach (string axis in AllowedAxes)
-        {
-            OnHorizontalAxis(axis);
-            OnVerticalAxis(axis);
-        }
+        OnHorizontalAxis(Input.GetAxis(Horizontal));
+        OnVerticalAxis(Input.GetAxis(Vertical));
     }
 
     private void OnKeyUp(KeyCode key)
@@ -44,13 +40,13 @@ public class KeyboardInput : ITickable, IInputHandler
     {
         KeyPressed?.Invoke(key);
     }
-    private void OnHorizontalAxis(string axis)
+    private void OnHorizontalAxis(float delta)
     {
-        HorizontalAxis?.Invoke(axis);
+        HorizontalAxis?.Invoke(delta);
     }
 
-    private void OnVerticalAxis(string axis)
+    private void OnVerticalAxis(float delta)
     {
-        VerticalAxis?.Invoke(axis);
+        VerticalAxis?.Invoke(delta);
     }
 }

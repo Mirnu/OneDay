@@ -15,7 +15,8 @@ public class GameplaySceneInstaller : MonoInstaller
 
     private void bindPlayer()
     {
-        Container.InstantiatePrefab(_character, gameObject.transform);
+        Character character = Container.InstantiatePrefabForComponent<Character>(_character);
+        Container.BindInterfacesAndSelfTo<Character>().FromInstance(character);
     }
 
     private void bindInput()
