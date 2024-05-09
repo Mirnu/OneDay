@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Movement 
 {
-    internal class WalkMovement : IInitializable
+    internal class WalkMovement : IInitializable, IMovement
     {
         private IInputHandler _inputHandler;
         private Character _character;
@@ -17,16 +17,24 @@ namespace Movement
             _character = character;
         }
 
-        public void Initialize()
+        public void Initialize() => Enable();
+
+        public void Enable()
         {
             _inputHandler.HorizontalAxis += MoveHorizontal;
             _inputHandler.VerticalAxis += MoveVertical;
+        }
+
+        public void Disable()
+        {
+            _inputHandler.HorizontalAxis -= MoveHorizontal;
+            _inputHandler.VerticalAxis -= MoveVertical;
         }
 
         private void MoveHorizontal(float delta) =>
             _character.transform.Translate(Vector2.right * delta);
 
         private void MoveVertical(float delta) =>
-            _character.transform.Translate(Vector2.up * delta);
+            _character.transform.Translate(Vector2.up * delta * Time.deltaTime);
     }
 }

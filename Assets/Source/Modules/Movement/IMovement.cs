@@ -1,4 +1,5 @@
 public interface IMovement
 {
-    public void setFreeze(bool statement);
+    public void Disable();
+    public void Enable();
 }
