@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +10,7 @@ namespace Movement
     {
         private IInputHandler _inputHandler;
         private Character _character;
+        public float _speed = 8f;
 
         [Inject]
         public void Construct(IInputHandler inputHandler, Character character)
@@ -32,9 +34,12 @@ namespace Movement
         }
 
         private void MoveHorizontal(float delta) =>
-            _character.transform.Translate(Vector2.right * delta);
+            _character.transform.Translate(Vector2.right * delta * Time.deltaTime * _speed);
 
         private void MoveVertical(float delta) =>
-            _character.transform.Translate(Vector2.up * delta * Time.deltaTime);
+            _character.transform.Translate(Vector2.up * delta * Time.deltaTime * _speed);
+
+        public void SetSpeed(float speed)
+            => _speed = Mathf.Max(0, speed);
     }
 }
