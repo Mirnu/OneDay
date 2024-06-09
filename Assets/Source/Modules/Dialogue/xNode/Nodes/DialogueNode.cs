@@ -3,12 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 
-public class DialogueNode : Node {
+namespace Dialogue
+{
+    public class DialogueNode : BaseNode
+    {
 
-    [Output(dynamicPortList = true)] public List<string> childrens;
+        [Output(dynamicPortList = true)] public List<string> Childrens;
 
-    [SerializeField] private string _name;
-    [SerializeField][TextArea] private string _text;
-    public string Name => _name;
-    public string Text => _text;
+        [SerializeField] private string _name;
+        [SerializeField] private int _id;
+        [SerializeField][TextArea] private string _text;
+
+        public string Name => _name;
+        public int Id => _id;
+        public string Text => _text;
+
+        public List<DialogueNode> GetChildrens()
+        {
+            NodePort port = GetOutputPort("Childrens");
+            List<DialogueNode> connectedNodes = new();
+            foreach (NodePort connection in port.GetConnections())
+            {
+                Node connectedNode = connection.node;
+                connectedNodes.Add((DialogueNode)connectedNode);
+            }
+            return connectedNodes;
+        }
+    }
 }
+
+
