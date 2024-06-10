@@ -34,7 +34,7 @@ namespace Dialogue
         {
             CurrentDialogueNode = CurrentDialogueNode.NextNode();
 
-            return transformNodeToDto();
+            return CurrentDialogueNode == null ? null : transformNodeToDto();
         }
 
         private Dialogue transformNodeToDto()

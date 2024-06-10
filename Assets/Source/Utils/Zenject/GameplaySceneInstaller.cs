@@ -3,13 +3,15 @@ using Model;
 using Movement;
 using Poll;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using Zenject;
 
 public class GameplaySceneInstaller : MonoInstaller
 {
     [SerializeField] private Character _character;
-    [SerializeField] private DialogueView _dialogueview;
+    [SerializeField] private DialogueView _dialogueView;
     [SerializeField] private PollView _pollview;
+    [SerializeField] private Test test;
 
     public override void InstallBindings()
     {
@@ -19,6 +21,7 @@ public class GameplaySceneInstaller : MonoInstaller
         bindModels();
         bindPoll();
         bindDialog();
+        Container.BindInterfacesAndSelfTo<Test>().FromInstance(test).NonLazy();
     }
 
     private void bindPlayer()
@@ -34,7 +37,7 @@ public class GameplaySceneInstaller : MonoInstaller
 
     private void bindMovement()
     {
-        Container.BindInterfacesAndSelfTo<WalkMovement>().AsSingle().NonLazy();
+        Container.Bind<IMovement>().To<WalkMovement>().AsSingle().NonLazy();
     }
 
     private void bindModels()
@@ -44,12 +47,12 @@ public class GameplaySceneInstaller : MonoInstaller
 
     private void bindPoll()
     {
-        Container.BindInterfacesAndSelfTo<PollView>().FromInstance(_pollview);
+        Container.Bind<IPollService>().To<PollView>().FromInstance(_pollview);
     }
 
     private void bindDialog()
     {
-        Container.BindInterfacesAndSelfTo<DialogueView>().FromInstance(_pollview);
-        Container.BindInterfacesAndSelfTo<DialogueService>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<DialogueView>().FromInstance(_dialogueView);
+        Container.Bind<IDialogueService>().To<DialogueService>().AsSingle().NonLazy();
     }
 }

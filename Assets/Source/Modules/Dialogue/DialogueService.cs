@@ -1,5 +1,7 @@
-using System.Collections.Generic;
 using Model;
+using Poll;
+using UnityEngine;
+using Zenject;
 
 namespace Dialogue
 {
@@ -7,39 +9,43 @@ namespace Dialogue
     {
         private readonly DialogueView _dialogueView;
         private readonly HistoryModel _history;
+        private readonly IPollService _pollService;
+        private readonly IMovement _movement;
 
         private NodeAdapter _nodeAdapter;
 
-        public DialogueService(DialogueView dialogueView, HistoryModel history) 
+        [Inject]
+        public DialogueService(DialogueView dialogueView, IPollService pollService, HistoryModel history, IMovement movement) 
         {
             _dialogueView = dialogueView;
+            _pollService = pollService;
             _history = history;
+            _movement = movement;
         }
 
         public void StartDialogue(NodeAdapter nodeAdapter) 
-        { 
+        {
             _nodeAdapter = nodeAdapter;
 
+            _movement.Disable();
             _history.AddDialogue(_nodeAdapter.Id);
             showCurrentDilogue();
         }
 
-        private void Subcribe() 
+        private void Subscribe() 
         {
             _dialogueView.OnClick += Clicked;
-            //_dialogueView.OnChoise += Choised;
         }
 
         private void Unsubcribe() 
         {
             _dialogueView.OnClick -= Clicked;
-            //_dialogueView.OnChoise -= Choised;
         }
 
         private void Clicked() 
         { 
             Dialogue dialogue = _nodeAdapter.NextNode();
-            _dialogueView.ShowDialogue(dialogue);
+            showDialogue(dialogue);
         }
 
         private void Choised(int choise) 
@@ -51,7 +57,38 @@ namespace Dialogue
         private void showCurrentDilogue()
         {
             Dialogue dialogue = _nodeAdapter.GetDialogueNode();
+            showDialogue(dialogue);
+        }
+
+        private void showDialogue(Dialogue dialogue)
+        {
+            if (checkOnEnd(dialogue)) return;
+
+            if (dialogue.isChoise)
+            {
+                Unsubcribe();
+                _pollService.LoadPoll(dialogue.Childrens, Choised);
+            }
+            else
+            {
+                Subscribe();
+                _pollService.ClearPoll();
+            }
+
             _dialogueView.ShowDialogue(dialogue);
+        }
+
+        private bool checkOnEnd(Dialogue dialogue)
+        {
+            if (dialogue == null)
+            {
+                _movement.Enable();
+                _dialogueView.ChangeState(false);
+                Unsubcribe();
+                _pollService.ClearPoll();
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Dialogue
 {
-    interface IDialogueService
+    public interface IDialogueService
     {
         public void StartDialogue(NodeAdapter nodeAdapter);
     }

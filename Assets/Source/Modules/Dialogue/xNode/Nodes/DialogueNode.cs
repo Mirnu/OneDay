@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using Poll;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 
 namespace Dialogue
 {
-    public class DialogueNode : BaseNode
+    public class DialogueNode : Node
     {
 
         [Output(dynamicPortList = true)] public List<string> Childrens;
@@ -18,15 +18,28 @@ namespace Dialogue
         public int Id => _id;
         public string Text => _text;
 
-        public List<DialogueNode> GetChildrens()
+        public virtual DialogueNode NextNode()
         {
-            NodePort port = GetOutputPort("Childrens");
-            List<DialogueNode> connectedNodes = new();
-            foreach (NodePort connection in port.GetConnections())
+            NodePort port = GetPort("Next");
+            return (DialogueNode)port.Connection.node;
+        }
+
+        public List<Choise> GetChildrens()
+        {
+            List<Choise> connectedNodes = new List<Choise>();
+            for (int i = 0; i < Childrens.Count; i++)
             {
-                Node connectedNode = connection.node;
-                connectedNodes.Add((DialogueNode)connectedNode);
+                NodePort port = GetOutputPort("Childrens " + i);
+                if (port != null)
+                {
+                    Choise choise = new Choise();
+                    choise.Text = Childrens[i];
+                    Debug.Log(((DialogueNode)port.Connection.node).Text);
+                    choise.Id = ((DialogueNode)port.Connection.node).Id;
+                    connectedNodes.Add(choise);
+                }
             }
+
             return connectedNodes;
         }
     }

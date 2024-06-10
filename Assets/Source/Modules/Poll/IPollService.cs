@@ -8,5 +8,6 @@ namespace Poll
     public interface IPollService
     {
         public void LoadPoll(List<Choise> poll, Action<int> onClick);
+        public void ClearPoll();
     }
 }

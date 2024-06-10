@@ -14,10 +14,10 @@ namespace Poll
 
         public Action<int> OnClick;
 
-        public void Init(int index, string text, Action<int> onClick)
+        public void Init(int index, string text, Action onClick)
         {
             Text.text = text;
-            Button.onClick.AddListener(() => onClick(index));
+            Button.onClick.AddListener(() => onClick());
         }
     }
 }
