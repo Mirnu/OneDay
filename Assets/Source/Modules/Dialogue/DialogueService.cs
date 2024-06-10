@@ -43,7 +43,7 @@ namespace Dialogue
         }
 
         private void Clicked() 
-        { 
+        {
             Dialogue dialogue = _nodeAdapter.NextNode();
             showDialogue(dialogue);
         }
@@ -64,11 +64,9 @@ namespace Dialogue
         {
             if (checkOnEnd(dialogue)) return;
 
+            Unsubcribe();
             if (dialogue.isChoise)
-            {
-                Unsubcribe();
                 _pollService.LoadPoll(dialogue.Childrens, Choised);
-            }
             else
             {
                 Subscribe();
