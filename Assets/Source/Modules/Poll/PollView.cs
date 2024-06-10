@@ -27,7 +27,6 @@ namespace Poll
                 Instantiate(_choisePrefab, _panel.transform).Init(choise.Id, choise.Text, () => 
                 {
                     _historyModel.AddChoise(choise.Id);
-                    Debug.Log(choise.Id);
                     onClick(choise.Id);
                 });
             }

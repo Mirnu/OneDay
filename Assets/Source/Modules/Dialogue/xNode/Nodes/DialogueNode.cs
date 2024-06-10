@@ -34,7 +34,6 @@ namespace Dialogue
                 {
                     Choise choise = new Choise();
                     choise.Text = Childrens[i];
-                    Debug.Log(((DialogueNode)port.Connection.node).Text);
                     choise.Id = ((DialogueNode)port.Connection.node).Id;
                     connectedNodes.Add(choise);
                 }
