@@ -1,3 +1,4 @@
+using Poll;
 using System.Collections.Generic;
 
 
@@ -8,7 +9,7 @@ namespace Dialogue
         public string Author;
         public string Text;
         public List<Choise> Childrens;
-        public bool isChose = false;
+        public bool isChoise = false;
 
         public static DiagueBuilder Build()
         {
@@ -36,19 +37,13 @@ namespace Dialogue
                 _dialogue.Childrens = childrens;
                 if (childrens.Count > 0)
                 {
-                    _dialogue.isChose = true;
+                    _dialogue.isChoise = true;
                 }
                 return this;
             }
 
             public Dialogue Build() => _dialogue;
         }
-    }
-
-    public struct Choise
-    {
-        public string Text;
-        public int Id;
     }
 }
 

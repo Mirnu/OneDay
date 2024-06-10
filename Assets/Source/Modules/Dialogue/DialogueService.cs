@@ -8,6 +8,8 @@ namespace Dialogue
         private readonly DialogueView _dialogueView;
         private readonly HistoryModel _history;
 
+        private NodeAdapter _nodeAdapter;
+
         public DialogueService(DialogueView dialogueView, HistoryModel history) 
         {
             _dialogueView = dialogueView;
@@ -16,24 +18,40 @@ namespace Dialogue
 
         public void StartDialogue(NodeAdapter nodeAdapter) 
         { 
-            _history.AddDialogue(nodeAdapter.Id);
-            Dialogue dialogueNode = nodeAdapter.GetDialogueNode();
-            _dialogueView.ShowDialogue(dialogueNode);
+            _nodeAdapter = nodeAdapter;
+
+            _history.AddDialogue(_nodeAdapter.Id);
+            showCurrentDilogue();
         }
 
         private void Subcribe() 
         {
             _dialogueView.OnClick += Clicked;
-            _dialogueView.OnChoise += Choised;
+            //_dialogueView.OnChoise += Choised;
         }
 
         private void Unsubcribe() 
         {
             _dialogueView.OnClick -= Clicked;
-            _dialogueView.OnChoise -= Choised;
+            //_dialogueView.OnChoise -= Choised;
         }
 
-        private void Clicked() { }
-        private void Choised(int chose) { }
+        private void Clicked() 
+        { 
+            Dialogue dialogue = _nodeAdapter.NextNode();
+            _dialogueView.ShowDialogue(dialogue);
+        }
+
+        private void Choised(int choise) 
+        { 
+            _nodeAdapter?.SetCurrentDialogueNodeByChoiseId(choise);
+            showCurrentDilogue();
+        }
+
+        private void showCurrentDilogue()
+        {
+            Dialogue dialogue = _nodeAdapter.GetDialogueNode();
+            _dialogueView.ShowDialogue(dialogue);
+        }
     }
 }
