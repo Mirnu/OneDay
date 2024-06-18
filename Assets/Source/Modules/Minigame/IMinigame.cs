@@ -1,14 +1,19 @@
 using System;
+using Zenject;
 
-public interface IMinigame {
+public interface IMinigame : ITickable {
 
-    public int ProgressProcentage { get; set; }
+    public Action onWin { get; set; }
+    public Action onLose { get; set; }
+    public MinigameType type { get; set; }
 
-    public void StartMinigame();
-    public void EndMinigame();
+    public float Progress { get; set; }
 
-    public void ChangeProgressProcentage();
-    
-    
-
+    void ITickable.Tick() {}
+    public void Start() {}
+}
+public enum MinigameType {
+    CHECK,
+    SCROLL,
+    SPAM
 }
