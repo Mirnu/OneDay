@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -6,7 +7,7 @@ using Zenject;
 
 namespace Movement 
 {
-    internal class WalkMovement : IInitializable, IMovement
+    internal class WalkMovement : IInitializable, IMovement, IDisposable
     {
         private IInputHandler _inputHandler;
         private Character _character;
@@ -32,6 +33,8 @@ namespace Movement
             _inputHandler.HorizontalAxis -= MoveHorizontal;
             _inputHandler.VerticalAxis -= MoveVertical;
         }
+
+        public void Dispose() => Disable();
 
         private void MoveHorizontal(float delta) =>
             _character.transform.Translate(Vector2.right * delta * Time.deltaTime * _speed);
