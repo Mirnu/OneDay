@@ -11,12 +11,12 @@ namespace Poll
     {
         [SerializeField] private ChoiseView _choisePrefab;
         [SerializeField] private GameObject _panel;
-        private HistoryModel _historyModel;
+        private ChoisesModel _choisesModel;
 
         [Inject]
-        public void Construct(HistoryModel historyModel)
+        public void Construct(ChoisesModel historyModel)
         {
-            _historyModel = historyModel;
+            _choisesModel = historyModel;
         }
 
         public void LoadPoll(List<Choise> poll, Action<int> onClick)
@@ -26,7 +26,7 @@ namespace Poll
             {
                 Instantiate(_choisePrefab, _panel.transform).Init(choise.Id, choise.Text, () => 
                 {
-                    _historyModel.AddChoise(choise.Id);
+                    _choisesModel.AddChoise(choise.Id);
                     onClick(choise.Id);
                 });
             }

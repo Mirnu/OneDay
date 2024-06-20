@@ -20,6 +20,8 @@ MonoBehaviour:
     - Childrens
     - Childrens 0
     - Childrens 1
+    - Childrens 2
+    - Childrens 3
     values:
     - _fieldName: Previous
       _node: {fileID: -8895142111246523201}
@@ -67,8 +69,34 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
+    - _fieldName: Childrens 2
+      _node: {fileID: -8895142111246523201}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Previous
+        node: {fileID: -6049882596324458815}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: Childrens 3
+      _node: {fileID: -8895142111246523201}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: Previous
+        node: {fileID: 725503154444921816}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   Childrens:
   - "\u0434\u0430"
+  - "\u043D\u0435\u0442"
+  - "\u043D\u0435\u0442"
   - "\u043D\u0435\u0442"
   _name: "\u0441\u0443\u0434\u044C\u0431\u0430"
   _id: 0
@@ -87,7 +115,7 @@ MonoBehaviour:
   m_Name: End
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 376, y: 88}
+  position: {x: 296, y: 24}
   ports:
     keys:
     - Previous
@@ -107,6 +135,52 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Childrens
       _node: {fileID: -8787124706671076715}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.String, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  Childrens: []
+  _name: "\u043A\u0430\u043C\u0435\u043D\u044C"
+  _id: 1
+  _text: "\u0442\u044B \u0432\u0437\u044F\u043B \u043C\u0435\u043D\u044F :)"
+  Previous: {fileID: 0}
+--- !u!114 &-6049882596324458815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d470f193faef41f499f8b494e2024a1f, type: 3}
+  m_Name: End
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 536, y: 56}
+  ports:
+    keys:
+    - Previous
+    - Childrens
+    values:
+    - _fieldName: Previous
+      _node: {fileID: -6049882596324458815}
+      _typeQualifiedName: Dialogue.BaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Childrens 2
+        node: {fileID: -8895142111246523201}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Childrens
+      _node: {fileID: -6049882596324458815}
       _typeQualifiedName: System.Collections.Generic.List`1[[System.String, mscorlib,
         Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
         Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -199,7 +273,55 @@ MonoBehaviour:
   - {fileID: -8895142111246523201}
   - {fileID: -4080857191833010985}
   - {fileID: 4024476135542294605}
+  - {fileID: -6049882596324458815}
+  - {fileID: 725503154444921816}
   Id: 0
+--- !u!114 &725503154444921816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d470f193faef41f499f8b494e2024a1f, type: 3}
+  m_Name: End
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 760, y: 88}
+  ports:
+    keys:
+    - Previous
+    - Childrens
+    values:
+    - _fieldName: Previous
+      _node: {fileID: 725503154444921816}
+      _typeQualifiedName: Dialogue.BaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Childrens 3
+        node: {fileID: -8895142111246523201}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Childrens
+      _node: {fileID: 725503154444921816}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.String, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  Childrens: []
+  _name: "\u043A\u0430\u043C\u0435\u043D\u044C"
+  _id: 1
+  _text: "\u0442\u044B \u0432\u0437\u044F\u043B \u043C\u0435\u043D\u044F :)"
+  Previous: {fileID: 0}
 --- !u!114 &4024476135542294605
 MonoBehaviour:
   m_ObjectHideFlags: 0
