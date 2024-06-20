@@ -8,18 +8,18 @@ namespace Dialogue
     public class DialogueService : IDialogueService
     {
         private readonly DialogueView _dialogueView;
-        private readonly HistoryModel _history;
+        private readonly DialogsModel _dialogue;
         private readonly IPollService _pollService;
         private readonly IMovement _movement;
 
         private NodeAdapter _nodeAdapter;
 
         [Inject]
-        public DialogueService(DialogueView dialogueView, IPollService pollService, HistoryModel history, IMovement movement) 
+        public DialogueService(DialogueView dialogueView, IPollService pollService, DialogsModel history, IMovement movement) 
         {
             _dialogueView = dialogueView;
             _pollService = pollService;
-            _history = history;
+            _dialogue = history;
             _movement = movement;
         }
 
@@ -28,7 +28,7 @@ namespace Dialogue
             _nodeAdapter = nodeAdapter;
 
             _movement.Disable();
-            _history.AddDialogue(_nodeAdapter.Id);
+            _dialogue.AddDialogue(_nodeAdapter.Id);
             showCurrentDilogue();
         }
 

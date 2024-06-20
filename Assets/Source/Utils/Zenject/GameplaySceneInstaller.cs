@@ -3,7 +3,6 @@ using Model;
 using Movement;
 using Poll;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using Zenject;
 
 public class GameplaySceneInstaller : MonoInstaller
@@ -42,7 +41,8 @@ public class GameplaySceneInstaller : MonoInstaller
 
     private void bindModels()
     {
-        Container.BindInterfacesAndSelfTo<HistoryModel>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<DialogsModel>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<ChoisesModel>().AsSingle().NonLazy();
     }
 
     private void bindPoll()
