@@ -16,10 +16,8 @@ namespace Installers
 
         public override void InstallBindings()
         {
-            bindInput();
             bindPlayer();
             bindMovement();
-            bindModels();
             bindPoll();
             bindDialog();
             Container.BindInterfacesAndSelfTo<Test>().FromInstance(test).NonLazy();
@@ -31,20 +29,9 @@ namespace Installers
             Container.BindInterfacesAndSelfTo<Character>().FromInstance(character);
         }
 
-        private void bindInput()
-        {
-            Container.BindInterfacesAndSelfTo<KeyboardInput>().AsSingle();
-        }
-
         private void bindMovement()
         {
             Container.Bind<IMovement>().To<WalkMovement>().AsSingle().NonLazy();
-        }
-
-        private void bindModels()
-        {
-            Container.BindInterfacesAndSelfTo<DialogsModel>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<ChoisesModel>().AsSingle().NonLazy();
         }
 
         private void bindPoll()

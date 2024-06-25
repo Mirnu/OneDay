@@ -1,27 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Menu
 {
     public enum Mode
     {
         MainMenu,
+        NewGame,
         Saving,
     }
 
-    public class MenuService : MonoBehaviour
+    public class MenuService : IInitializable
     {
-        [SerializeField] private GameObject _mainMode;
-        [SerializeField] private GameObject _savingMode;
+        public MenuService([Inject(Id = "mainMode")] GameObject mainMode,
+            [Inject(Id = "savingMode")] GameObject savingMode,
+            [Inject(Id = "newGameMode")] GameObject newGameMode)
+        {
+            _modes.Add(Mode.MainMenu, mainMode);
+            _modes.Add(Mode.Saving, savingMode);
+            _modes.Add(Mode.NewGame, newGameMode);
+        }
 
         private Dictionary<Mode, GameObject> _modes = new();
         private GameObject _currentMode;
 
-        private void Awake()
+        public void Initialize()
         {
-            _modes.Add(Mode.MainMenu, _mainMode);
-            _modes.Add(Mode.Saving, _savingMode);
-            enableMode(_mainMode);
+            enableMode(_modes[Mode.MainMenu]);
         }
 
         public void ChangeMode(Mode mode)

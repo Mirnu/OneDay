@@ -12,7 +12,8 @@ public class KeyboardInput : ITickable, IInputHandler
     public Action<float> HorizontalAxis { get; set; }
     public Action<float> VerticalAxis { get; set; }
 
-    private List<KeyCode> AllowedKeys = new List<KeyCode> { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.E };
+    private List<KeyCode> AllowedKeys = new List<KeyCode> 
+    { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.E, KeyCode.Escape, KeyCode.KeypadEnter };
     private const string Horizontal = "Horizontal", Vertical = "Vertical";
 
     public void Tick()

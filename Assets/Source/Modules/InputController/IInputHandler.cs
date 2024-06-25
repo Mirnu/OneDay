@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-interface IInputHandler
+public interface IInputHandler
 {
     Action<KeyCode> KeyUp { get; set; }
     Action<KeyCode> KeyDown { get; set; }
