@@ -1,12 +1,15 @@
-using UnityEditor;
+using Menu;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 namespace Menu
 {
-    public class NewGameButton : MonoBehaviour
+    public class ChangeModeButton : MonoBehaviour
     {
+        [SerializeField] private Mode _mode;
         private MenuService _menuService;
         private Button _button;
 
@@ -24,7 +27,7 @@ namespace Menu
 
         private void OnClick()
         {
-            _menuService.ChangeMode(Mode.NewGame);
+            _menuService.ChangeMode(_mode);
         }
     }
 }

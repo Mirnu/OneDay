@@ -27,6 +27,7 @@ namespace Menu
 
         public void Initialize()
         {
+            disableAll();
             enableMode(_modes[Mode.MainMenu]);
         }
 
@@ -34,6 +35,14 @@ namespace Menu
         {
             _currentMode.SetActive(false);
             enableMode(_modes[mode]);
+        }
+
+        private void disableAll()
+        {
+            foreach (var mode in _modes)
+            {
+                mode.Value.SetActive(false);
+            }
         }
 
         private void enableMode(GameObject mode)

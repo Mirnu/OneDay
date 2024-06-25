@@ -20,6 +20,12 @@ namespace Menu
 
         private TMP_Text _textLabel;
 
+        private void OnDisable()
+        {
+            _textLabel.color = _startColor;
+            _textLabel.text = _startText;
+        }
+
         private void Awake()
         {
             _textLabel = GetComponent<TMP_Text>();

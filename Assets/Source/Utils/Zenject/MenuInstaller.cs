@@ -1,5 +1,7 @@
 using Level;
 using Menu;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -12,10 +14,12 @@ namespace Installers
         [SerializeField] private GameObject _newGameMode;
         [SerializeField] private GameObject _savingMode;
 
-        [Header("Other")]
+        [Header("Main menu")]
         [SerializeField] private ContinueGameButton _continueGameButton;
-        [SerializeField] private NewGameButton _newGameButton;
-        [SerializeField] private GameObject _gameObject;
+        [SerializeField] private List<ChangeModeButton> _changeModeButtons;
+
+        [Header("NewGame Menu")]
+        [SerializeField] private NewGameController _newGameController;
 
         public override void InstallBindings()
         {
@@ -36,12 +40,16 @@ namespace Installers
         private void bindMainMenuMode()
         {
             Container.BindInterfacesAndSelfTo<ContinueGameButton>().FromInstance(_continueGameButton);
-            Container.BindInterfacesAndSelfTo<NewGameButton>().FromInstance(_newGameButton);
+
+            foreach (var button in _changeModeButtons)
+            {
+                Container.BindInterfacesAndSelfTo<ChangeModeButton>().FromInstance(button);
+            }
         }
 
         private void bindNewGameMode()
         {
-            Container.BindInterfacesAndSelfTo<NewGameController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<NewGameController>().FromInstance(_newGameController);   
         }
     }
 }
